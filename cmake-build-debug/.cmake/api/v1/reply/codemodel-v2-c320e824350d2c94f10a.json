@@ -22,7 +22,8 @@
 						4,
 						5,
 						6,
-						7
+						7,
+						8
 					]
 				}
 			],
@@ -44,7 +45,8 @@
 						4,
 						5,
 						6,
-						7
+						7,
+						8
 					]
 				}
 			],
@@ -104,6 +106,13 @@
 					"id" : "Ej8::@6890427a1f51a3e7e1df",
 					"jsonFile" : "target-Ej8-Debug-509ac4a00409323205ab.json",
 					"name" : "Ej8",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "Ej9::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-Ej9-Debug-c9f8294a4de467eaca62.json",
+					"name" : "Ej9",
 					"projectIndex" : 0
 				}
 			]

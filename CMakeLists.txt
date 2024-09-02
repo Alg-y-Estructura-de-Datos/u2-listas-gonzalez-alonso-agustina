@@ -11,4 +11,5 @@ add_executable(Ej5 Ej5.cpp)
 add_executable(Ej6 Ej6.cpp)
 add_executable(Ej7 Ej7.cpp)
 add_executable(Ej8 Ej8.cpp)
+add_executable(Ej9 Ej9.cpp)
 
