@@ -1,93 +1,57 @@
+/*Desarrolla un programa para gestionar un monitor publicitario que debe mostrar frases de
+anuncios de manera circular. Para lograr esto, implementarás una solución utilizando una lista
+circular simplemente enlazada.
+Requisitos:
+1. Frases de Anuncios:
+○ Cada frase de anuncio será un texto simple que el monitor debe mostrar por
+vez.
+2. Mostrar Circularmente:
+○ Las frases deben mostrarse en un formato circular, es decir, una vez que se ha
+mostrado la última frase, el monitor debe volver a mostrar la primera y así
+infinitamente.
+3. Implementación:
+○ Utiliza una lista circular simplemente enlazada para gestionar el almacenamiento
+y la visualización de las frases. La lista circular debe permitir el recorrido
+continuo de los elementos.
+4. Operaciones Básicas:
+○ Agregar Frases: Capacidad para añadir nuevas frases a la lista circular.
+○ Eliminar Frases: Capacidad para eliminar frases específicas de la lista.
+○ Mostrar Frases: Implementa una función para mostrar las frases en el monitor
+de manera continua, recorriendo circularmente la lista e infinitamente.*/
+
 #include <iostream>
-#include <string>
+#include "Lista/CircList.h"
+#include <chrono>
+#include <thread>
+using namespace std;
 
-// Nodo de la lista circular simplemente enlazada
-struct Nodo {
-    std::string frase;
-    Nodo* siguiente;
-};
-
-// Clase para gestionar la lista circular
-class ListaCircular {
-private:
-    Nodo* ultimo;
-
-public:
-    ListaCircular() : ultimo(nullptr) {}
-
-    // Agregar una nueva frase a la lista
-    void agregarFrase(const std::string& frase) {
-        Nodo* nuevo = new Nodo();
-        nuevo->frase = frase;
-        if (ultimo == nullptr) {
-            nuevo->siguiente = nuevo;
-            ultimo = nuevo;
-        } else {
-            nuevo->siguiente = ultimo->siguiente;
-            ultimo->siguiente = nuevo;
-            ultimo = nuevo;
-        }
+template <typename t>
+void mostrarFrases(CircList<t> lista){
+    if (lista.esVacia()){
+        cout << "No hay frases ingresadas" << endl;
     }
+    int pos = 0;
 
-    // Eliminar una frase específica de la lista
-    void eliminarFrase(const std::string& frase) {
-        if (ultimo == nullptr) return;
+    while (true){
+        cout << lista.getDato(pos) << endl;
+        pos = (pos + 1) % lista.getTamanio();
 
-        Nodo* actual = ultimo->siguiente;
-        Nodo* anterior = ultimo;
-
-        do {
-            if (actual->frase == frase) {
-                if (actual == ultimo) {
-                    if (actual == ultimo->siguiente) {
-                        delete actual;
-                        ultimo = nullptr;
-                    } else {
-                        anterior->siguiente = actual->siguiente;
-                        delete actual;
-                        ultimo = anterior;
-                    }
-                } else {
-                    anterior->siguiente = actual->siguiente;
-                    delete actual;
-                }
-                return;
-            }
-            anterior = actual;
-            actual = actual->siguiente;
-        } while (actual != ultimo->siguiente);
+        this_thread::sleep_for(chrono::seconds(1)); // Retraso de 3 segundo
     }
+}
 
-    // Mostrar las frases de manera circular
-    void mostrarFrases() const {
-        if (ultimo == nullptr) return;
+int main () {
+    cout << "Ejercicio N 8" << endl;
 
-        Nodo* actual = ultimo->siguiente;
-        do {
-            std::cout << actual->frase << std::endl;
-            actual = actual->siguiente;
-        } while (actual != ultimo->siguiente);
-    }
-};
+    CircList<string> lista;
 
-int main() {
-    ListaCircular monitor;
+    lista.insertarUltimo("hola");
+    lista.insertarUltimo("chau");
+    lista.insertarUltimo("anuncio");
 
-    // Agregar frases al monitor
-    monitor.agregarFrase("Anuncio 1: ¡Oferta especial!");
-    monitor.agregarFrase("Anuncio 2: ¡Descuentos del 50%!");
-    monitor.agregarFrase("Anuncio 3: ¡Nuevos productos disponibles!");
+    cout << "Mostrando frases de anuncios" << endl;
 
-    // Mostrar las frases circularmente
-    std::cout << "Mostrando frases del monitor publicitario:" << std::endl;
-    monitor.mostrarFrases();
-
-    // Eliminar una frase
-    monitor.eliminarFrase("Anuncio 2: ¡Descuentos del 50%!");
-
-    // Mostrar las frases nuevamente
-    std::cout << "\nDespués de eliminar una frase:" << std::endl;
-    monitor.mostrarFrases();
+    mostrarFrases(lista);
 
     return 0;
 }

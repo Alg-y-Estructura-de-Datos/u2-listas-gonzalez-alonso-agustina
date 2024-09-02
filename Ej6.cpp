@@ -50,28 +50,31 @@ void mostrarContactos( CircList<Contacto> &lista) {
     lista.imprimir();
 }
 
-void buscarContacto (CircList<Contacto> &lista, string &nombre){
-
+bool buscarContacto (CircList<Contacto> &lista, string &nombre){
+int bandera=0;
     for (int i = 0; i < lista.getTamanio(); ++i) {
         Contacto n=lista.getDato(i);
         if (n.nombre == nombre){
+            bandera=1;
             cout << "Contacto encontrado: " << n << endl;
         }
-        else {
-            cout << "Contacto no encontrado" << endl;
-        }
+    }
+    if (bandera == 0){
+        cout << "Contacto no encontrado" << endl;
     }
 }
 
 void eliminarContacto (CircList<Contacto> &lista, string& nombre){
+    int bandera=0;
     for (int i = 0; i < lista.getTamanio(); ++i) {
-        Contacto n=lista.getDato(i);
-        if (n.nombre == nombre){
+        Contacto n = lista.getDato(i);
+        if (n.nombre == nombre) {
+            bandera=1;
             lista.eliminarPorValor(n);
         }
-        else {
-            cout << "Contacto no encontrado" << endl;
-        }
+    }
+    if (bandera == 0){
+        cout << "Contacto no encontrado" << endl;
     }
 }
 
@@ -82,11 +85,11 @@ int main () {
     int opcion;
     string nombre;
 
-    lista.insertarUltimo(Contacto("Agus", "46031879"));
-    lista.insertarUltimo(Contacto("Bettina", "24614486"));
-    lista.insertarUltimo(Contacto("Magdalena", "2305757"));
-    lista.insertarUltimo(Contacto("Francisco", "123456"));
-    lista.insertarUltimo(Contacto("Ignacio", "789012"));
+    lista.insertarUltimo(Contacto("agus", "46031879"));
+    lista.insertarUltimo(Contacto("bettina", "24614486"));
+    lista.insertarUltimo(Contacto("magdalena", "2305757"));
+    lista.insertarUltimo(Contacto("francisco", "123456"));
+    lista.insertarUltimo(Contacto("ignacio", "789012"));
 
     do{
         cout << "\nMenú :" << endl;
@@ -96,6 +99,7 @@ int main () {
         cout << "4. Cantidad de contactos" << endl;
         cout << "5. Salir" << endl;
         cin >> opcion;
+        cin.ignore();
 
         switch (opcion) {
             case 1:
@@ -103,6 +107,7 @@ int main () {
                 break;
             case 2:
                 cout << "Ingrese el contacto a buscar" << endl;
+                cin >> nombre;
                 buscarContacto(lista,nombre);
                 break;
             case 3:
